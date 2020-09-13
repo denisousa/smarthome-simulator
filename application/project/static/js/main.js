@@ -15,6 +15,19 @@ function httpGet(theUrl) {
     return xmlHttp.responseText;
 }
 
+document.getElementById("start-environments").addEventListener("click", function () {
+    console.log('Working...');
+    const Http = new XMLHttpRequest();
+    Http.open("GET", "http://localhost:5001", false);
+    Http.send();
+    Http.onreadystatechange = () => {
+        if (Http.readyState === 4) {
+            console.log(JSON.parse(Http.responseText));
+        }
+    }
+});
+
+
 {% for environment in environments %}
 socket.on('{{environment}}', function (msg) {
     for (data in msg) {
@@ -29,15 +42,3 @@ socket.on('{{environment}}', function (msg) {
     }
 });
 {% endfor %}
-
-document.getElementById("start-environments").addEventListener("click", function () {
-    console.log('Working...');
-    const xhr = new XMLHttpRequest();
-    xhr.open("GET", "http://localhost:5001", false);
-    xhr.send();
-    xhr.onreadystatechange = () => {
-        if (xhr.readyState === 4) {
-            console.log(JSON.parse(xhr.responseText));
-        }
-    }
-});
