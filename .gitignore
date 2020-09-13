@@ -147,3 +147,5 @@ vscode/
 */__pycache__/
 
 *.sh.save
+
+*/env/
