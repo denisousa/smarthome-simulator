@@ -1,0 +1,21 @@
+environments:
+    - environment:
+        name: Cozinha
+        image: kitchen.png
+
+    - environment:
+        name: Escritorio
+        image: office-table.png
+
+    - environment:
+        name: Banheiro
+        image: toilet.png
+
+    - environment:
+        name: Quarto
+        image: room.png
+
+# Temperatura
+# Luminosidade
+# Movimento
+# Som

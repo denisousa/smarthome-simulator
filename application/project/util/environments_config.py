@@ -1,0 +1,1 @@
+environments_config = {{environments_config}}

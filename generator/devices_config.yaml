@@ -1,0 +1,129 @@
+devices:
+    - device:
+        modifier: noise
+        actions: alarm
+        name: Geladeira
+        description: Geladeira inteligente.
+        sensors:
+            - x
+        communications:
+            - Microondas
+        environment: Cozinha
+        image: fridge.png
+
+    - device:
+        modifier: noise
+        actions: alarm
+        name: Microondas
+        description: Microondas inteligente.
+        sensors:
+            - x
+        communications:
+            - Lampada
+        environment: Escritorio
+        image: microwave.png
+
+    - device:
+        modifier: light
+        actions: light up
+        name: Lampada
+        description: Lampada inteligente.
+        sensors:
+            sensor:
+                - temperature
+                - proximity
+                - noise
+                - light
+                #- location Não faz sentido pegar a localização dentro de uma casa.
+            communications:
+            - Microondas    
+        environment: Banheiro
+        image: lightbulb.png
+
+    - device:
+        modifier: noise
+        actions: alarm
+        name: Toradeira
+        description: Toradeira inteligente.
+        sensors:
+            - x
+        communications:
+            - Televisão
+        environment: Banheiro
+        image: toaster.png
+
+    - device:
+        modifier: noise
+        actions: high-volume
+        name: Televisão
+        description: Televisão inteligente.
+        sensors:
+            - x
+        communications:
+            - Ar condicionado
+        environment: Escritorio
+        image: television.png
+
+    - device:
+        modifier: temperature
+        actions:
+            - increase
+            - decrease
+        name: Ar condicionado
+        description: Ar condicionado inteligente.
+        sensors:
+            - x
+        communications:
+            - Ventilador
+        environment: Cozinha
+        image: air-conditioner.png
+
+    - device:
+        name: Ventilador
+        description: Ventilador inteligente.
+        sensors:
+            - x
+        communications:
+            - Relógio
+        environment: Cozinha
+        image: fan.png
+        
+    - device:
+        name: Relógio
+        description: Relógio inteligente.
+        sensors:
+            - x
+        communications:
+            - Geladeira
+        environment: Cozinha
+        image: clock.png
+
+    - device:
+        name: Fogão
+        description: Fogão inteligente.
+        sensors:
+            - x
+        communications:
+            - Geladeira
+        environment: Cozinha
+        image: stove.png
+
+    - device:
+        name: Estante de livros
+        description: Estante de livros inteligente.
+        sensors:
+            - x
+        communications:
+            - Relogio
+        environment: Escritorio
+        image: bookshelf.png
+
+    - device:
+        name: Guarda roupa
+        description: Guarda roupa inteligente.
+        sensors:
+            - x
+        communications:
+            - Toradeira
+        environment: Cozinha
+        image: wardrobe.png
