@@ -33,13 +33,17 @@
             </div>
             <hr>
             <div class="card-body">
-                <h5 class="card-title">Sent</h5>
-                <p class="card-text"></p>
+                <h5 class="card-title">Sensors</h5>
+                {% for sensor in device["device"]["sensors"]%}
+                <p class="card-text">{{sensor.capitalize()}}:</p>
+                {% endfor %}
             </div>
             <hr>
             <div class="card-body">
-                <h5 class="card-title">Receive</h5>
-                <p class="card-text"></p>
+                <h5 class="card-title">Communication</h5>
+                {% for communication in device["device"]["communications"]%}
+                <p class="card-text">{{communication.capitalize()}}</p>
+                {% endfor %}
             </div>
             <button href="#" class="btn btn-primary">Start</button>
             {% if 'actions' in device["device"] and device["device"]["modifier"] != 'temperature'  %}
@@ -87,6 +91,9 @@
         <!-- Copyright -->
     </footer>
     <!-- Footer -->
+    {% for environment in environments_config%}
+    <script type="text/javascript" charset="utf-8" src="static/images/{{ environment['environment']['image'] }}"></script>
+    {% endfor %}
 </body>
 <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"
     integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>

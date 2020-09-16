@@ -7,7 +7,10 @@ from flask import render_template, request, jsonify
 from project.util.connection_broker import Connection
 from project.util.devices_config import devices_config
 from project.util.environments_config import environments_config
-
+from project.service import (
+    {% for device in devices %}
+    {{device}}_service,{% endfor %}
+)
 from time import sleep
 from project import socketio
 
@@ -19,12 +22,15 @@ def index():
                            devices_config=devices_config,
                            environments_config=environments_config)
 
-{% for environment in environments %}
-@app.route("/{{environment}}", methods=["POST"])
-def environment_{{environment}}():
-    body = request.json
-    socketio.emit("{{environment}}", body)
-    print(body)
+{% for environment_device in environments_devices %}
+@app.route("/{{environment_device[0]}}", methods=["POST"])
+def environment_{{environment_device[0]}}():
+    data = request.json
+    {% for device in environment_device[1] %}
+    sleep(2)
+    {{device.replace(' ', '_')}}_service.save_data_environment(data)
+    {% endfor %}
+    socketio.emit("{{environment_device[0]}}", data)
     return jsonify({"msg": "Receive data"}), 200
 
 {% endfor %}

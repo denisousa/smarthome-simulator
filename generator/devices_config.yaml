@@ -5,7 +5,7 @@ devices:
         name: Geladeira
         description: Geladeira inteligente.
         sensors:
-            - x
+            - temperature
         communications:
             - Microondas
         environment: Cozinha
@@ -17,7 +17,9 @@ devices:
         name: Microondas
         description: Microondas inteligente.
         sensors:
-            - x
+            - temperature
+            - noise
+            - light
         communications:
             - Lampada
         environment: Escritorio
@@ -29,13 +31,10 @@ devices:
         name: Lampada
         description: Lampada inteligente.
         sensors:
-            sensor:
-                - temperature
-                - proximity
-                - noise
-                - light
-                #- location Não faz sentido pegar a localização dentro de uma casa.
-            communications:
+            - temperature
+            - noise
+            - light
+        communications:
             - Microondas    
         environment: Banheiro
         image: lightbulb.png
@@ -46,7 +45,7 @@ devices:
         name: Toradeira
         description: Toradeira inteligente.
         sensors:
-            - x
+            - temperature
         communications:
             - Televisão
         environment: Banheiro
@@ -58,7 +57,7 @@ devices:
         name: Televisão
         description: Televisão inteligente.
         sensors:
-            - x
+            - light
         communications:
             - Ar condicionado
         environment: Escritorio
@@ -72,7 +71,8 @@ devices:
         name: Ar condicionado
         description: Ar condicionado inteligente.
         sensors:
-            - x
+            - temperature
+            - light
         communications:
             - Ventilador
         environment: Cozinha
@@ -82,7 +82,9 @@ devices:
         name: Ventilador
         description: Ventilador inteligente.
         sensors:
-            - x
+            - temperature
+            - noise
+            - light
         communications:
             - Relógio
         environment: Cozinha
@@ -92,7 +94,7 @@ devices:
         name: Relógio
         description: Relógio inteligente.
         sensors:
-            - x
+            - noise
         communications:
             - Geladeira
         environment: Cozinha
@@ -102,7 +104,9 @@ devices:
         name: Fogão
         description: Fogão inteligente.
         sensors:
-            - x
+            - temperature
+            - noise
+            - light
         communications:
             - Geladeira
         environment: Cozinha
@@ -112,7 +116,7 @@ devices:
         name: Estante de livros
         description: Estante de livros inteligente.
         sensors:
-            - x
+            - temperature
         communications:
             - Relogio
         environment: Escritorio
@@ -122,7 +126,8 @@ devices:
         name: Guarda roupa
         description: Guarda roupa inteligente.
         sensors:
-            - x
+            - temperature
+            - light
         communications:
             - Toradeira
         environment: Cozinha
