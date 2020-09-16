@@ -81,6 +81,7 @@ environments_devices = get_environment_devices(devices_config, names_environment
 
 environment_controller = open('../environment/project/controller/environment_controller.py', "r").read()
 main_controller = open('../application/project/controller/main_controller.py', "r").read()
+init_py = open('../application/project/__init__.py', "r").read()
 main_js = open('../application/project/static/js/main.js', "r").read()
 
 t = Template(environment_controller).render(**{'environments':names_environments})
@@ -118,6 +119,11 @@ for name in names_devices:
 
 t = Template(main_controller).render(**{'environments_devices':environments_devices, 'devices':names_devices})
 with open('../new_application/project/controller/main_controller.py', "w") as f:
+    f.write(t)
+
+
+t = Template(init_py).render(**{'devices':names_devices})
+with open('../new_application/project/__init__.py', "w") as f:
     f.write(t)
 
 t = Template(main_js).render(**{'environments':names_environments})
