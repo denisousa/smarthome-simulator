@@ -14,7 +14,6 @@ class {{name_device}}Subscriber(ConfigScenario, Thread):
 
     def run(self):
         print('Running {{name_device}}...')
-        pass
 
     def callback(self, ch, method, properties, body):
         ch.basic_ack(delivery_tag=method.delivery_tag)

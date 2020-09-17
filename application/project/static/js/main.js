@@ -16,20 +16,15 @@ function httpGet(theUrl) {
 }
 
 document.getElementById("start-environments").addEventListener("click", function () {
-    console.log('Working...');
     const Http = new XMLHttpRequest();
     Http.open("GET", "http://localhost:5001", true);
     Http.send();
-    Http.onreadystatechange = () => {
-        if (Http.readyState === 4) {
-            console.log(JSON.parse(Http.responseText));
-        }
-    }
 });
 
 
 {% for environment in environments %}
 socket.on('{{environment}}', function (msg) {
+    document.querySelector("#{{environment}}").innerHTML = '';
     for (data in msg) {
         var p = document.createElement("p");
         if (data == 'temperature'){

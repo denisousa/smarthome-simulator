@@ -11,13 +11,16 @@ class {{name_device}}Publisher(ConfigScenario, Thread):
         Thread.__init__(self)
 
     def run(self):
-        pass
+        {% for communication in communications %}
+        print("{{name_device}} -> {{communication}}")
+        self.publish_data("{{communication}}_route")
+        {% endfor %}
 
-    def publish(self, status):
+    def publish_data(self, routing_key):
         self.channel.basic_publish(
             exchange="exchange",
-            routing_key="",
+            routing_key=routing_key,
             properties=pika.BasicProperties(delivery_mode=2,),
-            body=json.dumps(status),
+            body=json.dumps({'teste': 'teste'}),
         )       
         #socketio.emit("", status)

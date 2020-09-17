@@ -3,7 +3,7 @@ behaves:
         change-environment: lamp
         device: lampada-one
         data-environment:
-            - when hours > 22 then environment.light = False
+            - when time > 22 then environment.light = False
         data-device:
             - when babymonitor.noise == true then environment.light = True
 
@@ -11,5 +11,4 @@ behaves:
         change-environment: air-conditioning
         device: lampada-two
         data-environment:
-            - while hours > 22 then environment.temperatue.set(0.2)
-    
+            - while time > 22 then environment.temperatue.set(0.2)

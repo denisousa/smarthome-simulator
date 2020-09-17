@@ -37,27 +37,27 @@ devices:
             - light
         communications:
             - Microondas
-            - Toradeira
+            - Torradeira
         environment: Banheiro
         image: lightbulb.png
 
     - device:
         modifier: noise
         actions: alarm
-        name: Toradeira
-        description: Toradeira inteligente.
+        name: Torradeira
+        description: Torradeira inteligente.
         sensors:
             - temperature
         communications:
-            - Televisão
+            - Televisao
         environment: Banheiro
         image: toaster.png
 
     - device:
         modifier: noise
         actions: high-volume
-        name: Televisão
-        description: Televisão inteligente.
+        name: Televisao
+        description: Televisao inteligente.
         sensors:
             - light
         communications:
@@ -88,13 +88,13 @@ devices:
             - noise
             - light
         communications:
-            - Relógio
+            - Relogio
         environment: Cozinha
         image: fan.png
         
     - device:
-        name: Relógio
-        description: Relógio inteligente.
+        name: Relogio
+        description: Relogio inteligente.
         sensors:
             - noise
         communications:
@@ -103,8 +103,8 @@ devices:
         image: clock.png
 
     - device:
-        name: Fogão
-        description: Fogão inteligente.
+        name: Fogao
+        description: Fogao inteligente.
         sensors:
             - temperature
             - noise
@@ -131,7 +131,7 @@ devices:
             - temperature
             - light
         communications:
-            - Toradeira
+            - Torradeira
             - Relogio
         environment: Cozinha
         image: wardrobe.png

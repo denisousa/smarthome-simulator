@@ -3,8 +3,6 @@ eventlet.monkey_patch()
 from flask import Flask
 from flask_socketio import SocketIO
 from flask_mongoengine import MongoEngine
-from flask_cors import CORS
-from flask_bootstrap import Bootstrap
 
 
 app = Flask(__name__)
@@ -14,8 +12,7 @@ app.config['MONGODB_SETTINGS'] = {
     'host': 'mongodb://localhost/devices'
 }
 db = MongoEngine(app)
-CORS(app)
-Bootstrap(app)
+
 
 from .util import (
     components_config,

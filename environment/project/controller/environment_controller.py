@@ -6,6 +6,7 @@ import requests
 import json
 from time import sleep
 
+
 @app.route("/")
 def main():
     {% for environment in environments %}
@@ -14,8 +15,10 @@ def main():
     except:
         pass
     {% endfor %}
-    {% for environment in environments %}
-    environment = environment_service.find_environment_by_name("{{environment}}").to_json()
-    requests.post('http://localhost:5000/{{ environment }}', json=json.loads(environment))
-    {% endfor %}
+    while True:
+        {% for environment in environments %}
+        environment = environment_service.find_environment_by_name("{{environment}}").to_json()
+        requests.post('http://localhost:5000/{{ environment }}', json=json.loads(environment))
+        {% endfor %}
+        sleep(2)
     return jsonify({'msg': 'Success send :)'}), 200

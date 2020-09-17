@@ -20,7 +20,7 @@
             style="width: 18rem; margin: 0.2rem;">
             <div class="p-3 mb-2 bg-light rounded">Devices</div>
         </div>
-        {% for device in devices_config%}
+        {% for device in devices_config %}
         <div class="card" style="width: 18rem; margin: 1rem;">
             <div style="width:100%; text-align:center; margin-top:10px;">
                 <img class="center width:64px; height:64px;" src="static/images/{{ device['device']['image'] }}" alt="{{ device['device']['name'] }}">
@@ -33,9 +33,11 @@
             <hr>
             <div class="card-body">
                 <h5 class="card-title">Sensors</h5>
-                {% for sensor in device["device"]["sensors"]%}
-                <p class="card-text">{{sensor.capitalize()}}:</p>
-                {% endfor %}
+                <div class="{{device['device']['name'].lower().replace(' ', '_')}}-sensors">
+                <!-- {% for sensor in device["device"]["sensors"] %}
+                <p class="card-text">{{sensor.capitalize()}}:</p> 
+                {% endfor %} --> 
+                </div>
             </div>
             <hr>
             <div class="card-body">
@@ -90,11 +92,11 @@
         <!-- Copyright -->
     </footer>
     <!-- Footer -->
-    {% for environment in environments_config%}
-    <script type="text/javascript" charset="utf-8" src="static/images/{{ environment['environment']['image'] }}"></script>
-    {% endfor %}
 </body>
 <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"
     integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
 <script type="text/javascript" charset="utf-8" src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% for device in devices_config %}
+<script type="text/javascript" charset="utf-8" src="static/js/{{ device['device']['name'].lower().replace(' ', '_') }}.js"></script>
+{% endfor %}
 </html>
