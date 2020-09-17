@@ -4,9 +4,8 @@ from flask import render_template, request, jsonify
     {{device_connect}},
     {{device_disconnect}},
 )'''
-from project.util.connection_broker import Connection
-from project.util.devices_config import devices_config
-from project.util.environments_config import environments_config
+#from project.util.connection_broker import Connection
+from project.util.components_config import devices_config, environments_config
 from project.service import (
     {% for device in devices %}
     {{device}}_service,{% endfor %}
@@ -27,16 +26,12 @@ def index():
 def environment_{{environment_device[0]}}():
     data = request.json
     {% for device in environment_device[1] %}
-    sleep(2)
     {{device.replace(' ', '_')}}_service.save_data_environment(data)
     {% endfor %}
     socketio.emit("{{environment_device[0]}}", data)
     return jsonify({"msg": "Receive data"}), 200
 
 {% endfor %}
-
-
-
 
 '''@socketio.on("restart")
 def restart():
@@ -48,5 +43,5 @@ def restart():
 '''
 def start_controllers():
     {{device_connect}}
-    {{device_disconnect}}'''
-
+    {{device_disconnect}}
+'''

@@ -17,6 +17,5 @@ def main():
     {% for environment in environments %}
     environment = environment_service.find_environment_by_name("{{environment}}").to_json()
     requests.post('http://localhost:5000/{{ environment }}', json=json.loads(environment))
-    sleep(5)
     {% endfor %}
     return jsonify({'msg': 'Success send :)'}), 200

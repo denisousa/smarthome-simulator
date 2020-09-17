@@ -23,8 +23,7 @@
         {% for device in devices_config%}
         <div class="card" style="width: 18rem; margin: 1rem;">
             <div style="width:100%; text-align:center; margin-top:10px;">
-                <img class="center width:64px; height:64px;" src="static/images/{{ device['device']['image'] }}"
-                    alt="{{ device['device']['name'] }}">
+                <img class="center width:64px; height:64px;" src="static/images/{{ device['device']['image'] }}" alt="{{ device['device']['name'] }}">
             </div>
             <div class="card-body">
                 <h5 class="card-title">{{device["device"]["name"]}}</h5>

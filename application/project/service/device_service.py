@@ -17,6 +17,6 @@ def remove_fields(data):
     return data
 
 def save_data_environment(data):
-    data = remove_fields(data)
+    data = remove_fields(dict(data))
     {{device}}DB(**data).save()
 

@@ -18,7 +18,7 @@ function httpGet(theUrl) {
 document.getElementById("start-environments").addEventListener("click", function () {
     console.log('Working...');
     const Http = new XMLHttpRequest();
-    Http.open("GET", "http://localhost:5001", false);
+    Http.open("GET", "http://localhost:5001", true);
     Http.send();
     Http.onreadystatechange = () => {
         if (Http.readyState === 4) {

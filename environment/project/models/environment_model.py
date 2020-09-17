@@ -1,4 +1,3 @@
-
 from project import db
 
 

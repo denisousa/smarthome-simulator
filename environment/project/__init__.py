@@ -3,7 +3,10 @@ from flask_mongoengine import MongoEngine
 
 
 app = Flask(__name__)
-app.config["MONGODB_HOST"] = 'mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass%20Community&ssl=false'
+app.config['MONGODB_SETTINGS'] = {
+    'db': 'environments',
+    'host': 'mongodb://localhost/environments'
+}
 db = MongoEngine(app)
 
 

@@ -4,6 +4,7 @@ from project.util.connection_broker import Connection
 class ConfigScenario(Connection):
     def __init__(self):
         Connection.__init__(self)
+        self.declare_exchange("exchange", "topic")
 
     def declare_exchange(self, exchange, exchange_type):
         self.channel.exchange_declare(

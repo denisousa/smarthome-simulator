@@ -1,15 +1,18 @@
-from project.model.subscriber.{{device_subscribe}} import {{class_device_subscriber}}
+from project.communication.subscriber import (
+    {% for device in devices %}
+    {{device}}_subscriber,{% endfor %}
+)
 from multiprocessing import Process
 from time import sleep
-import pika
+
 
 subscriber_list = []
-subscriber_list.append({{class_device_subscriber}}())
+{% for device in devices %}
+subscriber_list.append({{device}}_subscriber.{{device}}Subscriber()){% endfor %}
 
-process_list = []
-for subscriber in subscriber_list:
+print('Start Subscribers:')
+for sub in subscriber_list:
     process = Process(target=sub.run)
     process.start()
-    process_list.append(process)
 
 sleep(1)
