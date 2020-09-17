@@ -8,6 +8,7 @@ devices:
             - temperature
         communications:
             - Microondas
+            - Lampada
         environment: Cozinha
         image: fridge.png
 
@@ -35,7 +36,8 @@ devices:
             - noise
             - light
         communications:
-            - Microondas    
+            - Microondas
+            - Toradeira
         environment: Banheiro
         image: lightbulb.png
 
@@ -130,5 +132,6 @@ devices:
             - light
         communications:
             - Toradeira
+            - Relogio
         environment: Cozinha
         image: wardrobe.png

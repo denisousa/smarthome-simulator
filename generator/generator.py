@@ -86,14 +86,15 @@ for name in names_devices:
     f.write(t)
     f.close()
 
-for name in names_devices:
+for name_device, device in zip(names_devices, devices_config["devices"]):
+    communications = [unidecode(communication.lower().replace(" ", "_")) for communication in device['device']['communications']]
     r = open(
         f"../new_application/project/communication/publisher/device_publisher.py", "r"
     ).read()
     f = open(
-        f"../new_application/project/communication/publisher/{name}_publisher.py", "w"
+        f"../new_application/project/communication/publisher/{name_device}_publisher.py", "w"
     )
-    t = Template(r).render(name_device=name)
+    t = Template(r).render(name_device=name_device, communications=communications)
     f.write(t)
     f.close()
 
@@ -108,10 +109,10 @@ for name in names_devices:
     f.write(t)
     f.close()
 
-for environment in names_environments:
-    r = open(f"../new_application/project/static/js/environment.js", "r").read()
-    f = open(f"../new_application/project/static/js/{environment}.js", "w")
-    t = Template(r).render(environment=environment)
+for device in names_devices:
+    r = open(f"../new_application/project/static/js/device.js", "r").read()
+    f = open(f"../new_application/project/static/js/{device}.js", "w")
+    t = Template(r).render(device=device)
     f.write(t)
     f.close()
 
@@ -154,8 +155,7 @@ os.remove("../new_application/project/model/device_model.py")
 os.remove("../new_application/project/service/device_service.py")
 os.remove("../new_application/project/communication/publisher/device_publisher.py")
 os.remove("../new_application/project/communication/subscriber/device_subscriber.py")
-
-
+os.remove("../new_application/project/static/js/device.js")
 """
     base_config = open(path_construct_scenario, "r").read()
     devices_config = Template(base_config).render(yaml_config=yaml_config['devices'])
