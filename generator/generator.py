@@ -75,14 +75,16 @@ environments_devices = get_environment_devices(devices_config, names_environment
 for name_device, device in zip(names_devices, devices_config["devices"]):
     r = open(f"../new_application/project/model/device_model.py", "r").read()
     f = open(f"../new_application/project/model/{name_device}_model.py", "w")
-    t = Template(r).render(name_device=name_device, device=device)
+    device_class = name_device.replace('_', ' ').title().replace(' ', '')
+    t = Template(r).render(name_device=name_device, device=device, device_class=device_class)
     f.write(t)
     f.close()
 
 for name in names_devices:
     r = open(f"../new_application/project/service/device_service.py", "r").read()
     f = open(f"../new_application/project/service/{name}_service.py", "w")
-    t = Template(r).render(device=name)
+    device_class = name.replace('_', ' ').title().replace(' ', '')
+    t = Template(r).render(device=name, device_class=device_class)
     f.write(t)
     f.close()
 

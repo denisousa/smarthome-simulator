@@ -6,9 +6,10 @@ import json
 
 
 class {{name_device}}Publisher(ConfigScenario, Thread):
-    def __init__(self):
+    def __init__(self, data):
         ConfigScenario.__init__(self)
         Thread.__init__(self)
+        self.data = data
 
     def run(self):
         {% for communication in communications %}
@@ -17,10 +18,10 @@ class {{name_device}}Publisher(ConfigScenario, Thread):
         {% endfor %}
 
     def publish_data(self, routing_key):
+        self.data['data_from'] = '{{name_device}}'
         self.channel.basic_publish(
             exchange="exchange",
             routing_key=routing_key,
             properties=pika.BasicProperties(delivery_mode=2,),
-            body=json.dumps({'teste': 'teste'}),
-        )       
-        #socketio.emit("", status)
+            body=json.dumps(self.data),
+        )

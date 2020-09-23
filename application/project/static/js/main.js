@@ -25,6 +25,7 @@ document.getElementById("start-environments").addEventListener("click", function
 {% for environment in environments %}
 socket.on('{{environment}}', function (msg) {
     document.querySelector("#{{environment}}").innerHTML = '';
+    delete msg['data_from'];
     for (data in msg) {
         var p = document.createElement("p");
         if (data == 'temperature'){

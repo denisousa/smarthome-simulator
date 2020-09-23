@@ -17,8 +17,9 @@ def main():
     {% endfor %}
     while True:
         {% for environment in environments %}
-        environment = environment_service.find_environment_by_name("{{environment}}").to_json()
-        requests.post('http://localhost:5000/{{ environment }}', json=json.loads(environment))
+        environment = json.loads(environment_service.find_environment_by_name("{{environment}}").to_json())
+        environment['data_from'] = '{{environment}}'
+        requests.post('http://localhost:5000/{{ environment }}', json=environment)
         {% endfor %}
-        sleep(2)
+        sleep(5)
     return jsonify({'msg': 'Success send :)'}), 200

@@ -29,10 +29,10 @@ def index():
 def environment_{{environment_device[0]}}():
     data = request.json
     socketio.emit("{{environment_device[0]}}", data)
-    {% for device in environment_device[1] %}
+    {% for device in environment_device[1] %}   
     data_clean = {{device.replace(' ', '_')}}_service.remove_fields(dict(data))
     {{device.replace(' ', '_')}}_service.save_data_environment(data_clean)
-    {{device.replace(' ', '_')}}_publisher.{{device.replace(' ', '_')}}Publisher().start()
+    {{device.replace(' ', '_')}}_publisher.{{device.replace(' ', '_')}}Publisher(data_clean).start()
     socketio.emit("{{device.replace(' ', '_')}}", data_clean)
     {% endfor %}
     return jsonify({"msg": "Receive data"}), 200

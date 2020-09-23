@@ -1,14 +1,14 @@
 behaves:
     behave:
-        change-environment: lamp
+        available-change: lamp
         device: lampada-one
         data-environment:
-            - when time > 22 then environment.light = False
+            - when time > 22  then environment.light = False
         data-device:
             - when babymonitor.noise == true then environment.light = True
 
     behave:
-        change-environment: air-conditioning
-        device: lampada-two
+        available-change: air-conditioning
+        device: air-conditioning-one
         data-environment:
             - while time > 22 then environment.temperatue.set(0.2)

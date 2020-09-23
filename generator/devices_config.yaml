@@ -76,7 +76,7 @@ devices:
             - temperature
             - light
         communications:
-            - Ventilador
+            - Relogio
         environment: Cozinha
         image: air-conditioner.png
 
