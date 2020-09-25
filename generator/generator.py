@@ -72,6 +72,14 @@ names_environments = get_names_var(environments_config["environments"], "environ
 names_environments = {name: name for name in names_environments}
 environments_devices = get_environment_devices(devices_config, names_environments)
 
+for name_device in names_devices:
+    r = open(f"../new_application/project/controller/device_controller.py", "r").read()
+    f = open(f"../new_application/project/controller/{name_device}_controller.py", "w")
+    t = Template(r).render(name_device=name_device)
+    f.write(t)
+    f.close()
+
+
 for name_device, device in zip(names_devices, devices_config["devices"]):
     r = open(f"../new_application/project/model/device_model.py", "r").read()
     f = open(f"../new_application/project/model/{name_device}_model.py", "w")
@@ -118,12 +126,21 @@ for device in names_devices:
     f.write(t)
     f.close()
 
+main_controller = open("../application/project/controller/main_controller.py", "r").read()
+#device_controller = open("../application/project/controller/device_controller.py", "r").read()
 components_config = open("../application/project/util/components_config.py", "r").read()
 environment_controller = open("../environment/project/controller/environment_controller.py", "r").read()
-main_controller = open("../application/project/controller/main_controller.py", "r").read()
 init_py = open("../application/project/__init__.py", "r").read()
 main_js = open("../application/project/static/js/main.js", "r").read()
 start_subscribers = open("../application/project/util/start_subscribers.py", "r").read()
+
+t = Template(main_controller).render(**{"environments_devices": environments_devices, "devices": names_devices})
+with open("../new_application/project/controller/main_controller.py", "w") as f:
+    f.write(t)
+
+'''t = Template(device_controller).render(**{"environments": names_environments})
+with open("../new_environment/project/controller/device_controller.py", "w") as f:
+    f.write(t)'''
 
 t = Template(environment_controller).render(**{"environments": names_environments})
 with open("../new_environment/project/controller/environment_controller.py", "w") as f:
@@ -131,10 +148,6 @@ with open("../new_environment/project/controller/environment_controller.py", "w"
 
 t = Template(components_config).render(**{"devices_config": devices_config["devices"],"environments_config": environments_config["environments"],})
 with open("../new_application/project/util/components_config.py", "w") as f:
-    f.write(t)
-
-t = Template(main_controller).render(**{"environments_devices": environments_devices, "devices": names_devices})
-with open("../new_application/project/controller/main_controller.py", "w") as f:
     f.write(t)
 
 t = Template(init_py).render(**{"devices": names_devices})
@@ -153,11 +166,13 @@ t = Template(start_subscribers).render(**{"devices": names_devices})
 with open("../new_application/project/util/start_subscribers.py", "w") as f:
     f.write(t)
 
+os.remove("../new_application/project/controller/device_controller.py")
 os.remove("../new_application/project/model/device_model.py")
 os.remove("../new_application/project/service/device_service.py")
 os.remove("../new_application/project/communication/publisher/device_publisher.py")
 os.remove("../new_application/project/communication/subscriber/device_subscriber.py")
 os.remove("../new_application/project/static/js/device.js")
+
 """
     base_config = open(path_construct_scenario, "r").read()
     devices_config = Template(base_config).render(yaml_config=yaml_config['devices'])
