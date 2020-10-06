@@ -1,5 +1,5 @@
 from project import db
-
+from project.models.person_model import PersonDB
 
 class EnvironmentDB(db.Document):
     meta = {'collection': 'environment'}
@@ -8,3 +8,5 @@ class EnvironmentDB(db.Document):
     temperature = db.FloatField(required=True)
     noise = db.BooleanField(required=True)
     light = db.BooleanField(required=True)
+    proximity = db.BooleanField(required=False)
+    people = db.ListField(db.ReferenceField(PersonDB))

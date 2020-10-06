@@ -1,104 +1,98 @@
 devices:
     - device:
-        modifier: noise
-        actions: alarm
         name: Geladeira
         description: Geladeira inteligente.
+        internal-state:
+            - qty_food: nat, 20
+            - temperature: termic, 3.25
         sensors:
             - temperature
-        communications:
-            - Microondas
-            - Lampada
+        actuators:
+            - alarm: noise
         environment: Cozinha
         image: fridge.png
 
     - device:
-        modifier: noise
-        actions: alarm
         name: Microondas
         description: Microondas inteligente.
+        internal-state:
+            - weight_food: weight, 200.g
+            - temperature: termic, 80.25
         sensors:
             - temperature
             - noise
             - light
-        communications:
-            - Lampada
+        actuators:
+            - alarm: noise
+        attributes:
+            - food-weight: float
         environment: Escritorio
         image: microwave.png
 
     - device:
-        modifier: light
-        actions: light up
         name: Lampada
         description: Lampada inteligente.
+        internal-state:
+            - on_state: bool, False
         sensors:
             - temperature
             - noise
             - light
-        communications:
-            - Microondas
-            - Torradeira
+            - proximity
+        actuators:
+            - switch: light
         environment: Banheiro
         image: lightbulb.png
 
     - device:
-        modifier: noise
-        actions: alarm
         name: Torradeira
+        internal-state:
+            - ready_food: bool, False
+            - temperature: termic, 15.25
         description: Torradeira inteligente.
         sensors:
             - temperature
-        communications:
-            - Televisao
         environment: Banheiro
         image: toaster.png
 
     - device:
-        modifier: noise
-        actions: high-volume
         name: Televisao
         description: Televisao inteligente.
         sensors:
             - light
-        communications:
-            - Ar condicionado
         environment: Escritorio
         image: television.png
 
     - device:
-        modifier: temperature
-        actions:
-            - increase
-            - decrease
         name: Ar condicionado
+        internal-state:
+            - dirty_filter: bool, False
         description: Ar condicionado inteligente.
         sensors:
             - temperature
             - light
-        communications:
-            - Relogio
+        actuators:
+            - alarm: noise
         environment: Cozinha
         image: air-conditioner.png
 
     - device:
         name: Ventilador
+        internal-state:
+            - dirty_filter: bool, False
         description: Ventilador inteligente.
         sensors:
             - temperature
             - noise
             - light
-        communications:
-            - Relogio
         environment: Cozinha
         image: fan.png
-        
+
     - device:
         name: Relogio
         description: Relogio inteligente.
         sensors:
             - noise
-        communications:
-            - Geladeira
         environment: Cozinha
         image: clock.png
 
@@ -109,29 +103,27 @@ devices:
             - temperature
             - noise
             - light
-        communications:
-            - Geladeira
         environment: Cozinha
         image: stove.png
 
     - device:
         name: Estante de livros
         description: Estante de livros inteligente.
+        internal-state:
+            - weight_books: weight, 2.0kg
+            - qty_book: nat, 5
         sensors:
             - temperature
-        communications:
-            - Relogio
         environment: Escritorio
         image: bookshelf.png
 
     - device:
         name: Guarda roupa
         description: Guarda roupa inteligente.
+        internal-state:
+            - qty_clothes: nat, 15
         sensors:
             - temperature
             - light
-        communications:
-            - Torradeira
-            - Relogio
         environment: Cozinha
         image: wardrobe.png

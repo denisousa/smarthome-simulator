@@ -67,10 +67,13 @@ generate_new_project()
 
 devices_config = get_yaml_config("devices_config.yaml")
 names_devices = get_names_var(devices_config["devices"], "device")
+
 environments_config = get_yaml_config("environments_config.yaml")
 names_environments = get_names_var(environments_config["environments"], "environment")
 names_environments = {name: name for name in names_environments}
 environments_devices = get_environment_devices(devices_config, names_environments)
+
+people_config = get_yaml_config("people_config.yaml")
 
 for name_device, device in zip(names_devices, devices_config["devices"]):
     r = open(f"../new_application/project/model/device_model.py", "r").read()
@@ -88,17 +91,18 @@ for name in names_devices:
     f.write(t)
     f.close()
 
-for name_device, device in zip(names_devices, devices_config["devices"]):
-    communications = [unidecode(communication.lower().replace(" ", "_")) for communication in device['device']['communications']]
-    r = open(
-        f"../new_application/project/communication/publisher/device_publisher.py", "r"
-    ).read()
-    f = open(
-        f"../new_application/project/communication/publisher/{name_device}_publisher.py", "w"
-    )
-    t = Template(r).render(name_device=name_device, communications=communications)
-    f.write(t)
-    f.close()
+# Aqui estava gerando erro, vou ter que mudar para enviar dados para um servidor...
+# for name_device, device in zip(names_devices, devices_config["devices"]):
+#     communications = [unidecode(communication.lower().replace(" ", "_")) for communication in device['device']['communications']]
+#     r = open(
+#         f"../new_application/project/communication/publisher/device_publisher.py", "r"
+#     ).read()
+#     f = open(
+#         f"../new_application/project/communication/publisher/{name_device}_publisher.py", "w"
+#     )
+#     t = Template(r).render(name_device=name_device, communications=communications)
+#     f.write(t)
+#     f.close()
 
 for name in names_devices:
     r = open(
@@ -119,17 +123,22 @@ for device in names_devices:
     f.close()
 
 components_config = open("../application/project/util/components_config.py", "r").read()
+components_config_env = open("../environment/project/util/components_config.py", "r").read()
 environment_controller = open("../environment/project/controller/environment_controller.py", "r").read()
 main_controller = open("../application/project/controller/main_controller.py", "r").read()
 init_py = open("../application/project/__init__.py", "r").read()
 main_js = open("../application/project/static/js/main.js", "r").read()
 start_subscribers = open("../application/project/util/start_subscribers.py", "r").read()
 
-t = Template(environment_controller).render(**{"environments": names_environments})
+t = Template(environment_controller).render(**{"environments": names_environments, "people": people_config['people']})
 with open("../new_environment/project/controller/environment_controller.py", "w") as f:
     f.write(t)
 
-t = Template(components_config).render(**{"devices_config": devices_config["devices"],"environments_config": environments_config["environments"],})
+t = Template(components_config_env).render(**{"environments": names_environments, "people": people_config['people']})
+with open("../new_environment/project/util/components_config.py", "w") as f:
+    f.write(t)
+
+t = Template(components_config).render(**{"devices_config": devices_config["devices"],"environments_config": environments_config["environments"], "people_config": people_config["people"]})
 with open("../new_application/project/util/components_config.py", "w") as f:
     f.write(t)
 
@@ -143,10 +152,6 @@ with open("../new_application/project/__init__.py", "w") as f:
 
 t = Template(main_js).render(**{"environments": names_environments})
 with open("../new_application/project/static/js/main.js", "w") as f:
-    f.write(t)
-
-t = Template(environment_controller).render(**{"environments": names_environments})
-with open("../new_environment/project/controller/environment_controller.py", "w") as f:
     f.write(t)
 
 t = Template(start_subscribers).render(**{"devices": names_devices})

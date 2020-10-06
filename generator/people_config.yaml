@@ -1,0 +1,15 @@
+people:
+    - person:
+        name: Aldaberto
+        environment: Cozinha
+        image: father.png
+
+    - person:
+        name: Rosangela
+        environment: Escritorio
+        image: mother.png
+
+    - person:
+        name: Aerosangelo
+        environment: Quarto
+        image: boy.png

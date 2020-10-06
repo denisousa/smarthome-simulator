@@ -14,8 +14,3 @@ environments:
     - environment:
         name: Quarto
         image: room.png
-
-# Temperatura
-# Luminosidade
-# Movimento
-# Som
