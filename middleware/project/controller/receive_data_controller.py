@@ -5,15 +5,11 @@ from project.service.middleware_service import (
     check_and_apply_strategies
 )
 
-call_once = True
 
 {% for name_device in names_devices %}
 @app.route("/receive-data/{{name_device}}", methods=["POST"])
 def receive_from_{{name_device}}():
-    global call_once
     save_data(request.json)
-    success = check_and_apply_strategies()
-    if success:
-        call_once = False
+    check_and_apply_strategies()
     return jsonify({"msg": "ok"}), 200
 {% endfor %}
