@@ -1,44 +1,53 @@
+architecture:
+    middleware
+
 devices:
     - device:
         name: Geladeira
         description: Geladeira inteligente.
-        internal-state:
-            - qty_food: nat, 20
-            - temperature: termic, 3.25
         sensors:
             - temperature
+            - noise
+            - light
         actuators:
             - alarm: noise
         environment: Cozinha
         image: fridge.png
 
     - device:
+        name: Assistente Virtual
+        description: Alexa uma assistente inteligente.
+        sensors:
+            - temperature
+            - noise
+            - light
+            - motion
+        actuators:
+            - speak_notification: noise
+            - alarm: noise
+        environment: Escritorio
+        image: alexa.png
+
+    - device:
         name: Microondas
         description: Microondas inteligente.
-        internal-state:
-            - weight_food: weight, 200.g
-            - temperature: termic, 80.25
         sensors:
             - temperature
             - noise
             - light
         actuators:
             - alarm: noise
-        attributes:
-            - food-weight: float
         environment: Escritorio
         image: microwave.png
 
     - device:
         name: Lampada
         description: Lampada inteligente.
-        internal-state:
-            - on_state: bool, False
         sensors:
             - temperature
             - noise
             - light
-            - proximity
+            - motion
         actuators:
             - switch: light
         environment: Banheiro
@@ -46,12 +55,10 @@ devices:
 
     - device:
         name: Torradeira
-        internal-state:
-            - ready_food: bool, False
-            - temperature: termic, 15.25
         description: Torradeira inteligente.
         sensors:
             - temperature
+            - motion
         environment: Banheiro
         image: toaster.png
 
@@ -65,8 +72,6 @@ devices:
 
     - device:
         name: Ar condicionado
-        internal-state:
-            - dirty_filter: bool, False
         description: Ar condicionado inteligente.
         sensors:
             - temperature
@@ -78,8 +83,6 @@ devices:
 
     - device:
         name: Ventilador
-        internal-state:
-            - dirty_filter: bool, False
         description: Ventilador inteligente.
         sensors:
             - temperature
@@ -103,15 +106,13 @@ devices:
             - temperature
             - noise
             - light
+            - motion
         environment: Cozinha
         image: stove.png
 
     - device:
         name: Estante de livros
         description: Estante de livros inteligente.
-        internal-state:
-            - weight_books: weight, 2.0kg
-            - qty_book: nat, 5
         sensors:
             - temperature
         environment: Escritorio
@@ -120,8 +121,6 @@ devices:
     - device:
         name: Guarda roupa
         description: Guarda roupa inteligente.
-        internal-state:
-            - qty_clothes: nat, 15
         sensors:
             - temperature
             - light

@@ -140,7 +140,8 @@ cython_debug/
 
 new_environment/
 new_application/
-
+new_middleware/
+test_middleware/
 env/
 
 vscode/

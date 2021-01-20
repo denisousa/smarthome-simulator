@@ -13,3 +13,7 @@ socket.on('{{device}}', function(data) {
         document.querySelector(".{{device}}-sensors").appendChild(p);
     }
 });
+
+// socket.on('{{device}}_adapt', function(data) {
+//     alert("Success Adapt: \n " + data);
+// });

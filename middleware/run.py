@@ -1,6 +1,6 @@
-from project import app, socketio
+from project import app
 
 
 if __name__ == "__main__":
-    print('Run Simulator \n')
-    socketio.run(app, port=5002)
+    print('Run Middleware \n')
+    app.run(port=5002)

@@ -39,7 +39,10 @@ def insert_person_environment(person: str, environment: str):
 def update_proximty(name):
     env = EnvironmentDB.objects.get(name=name)
     if env.people:
-        env.update(proximity=True)
+        env.update(motion=True)
     else:
-        env.update(proximity=False)
+        env.update(motion=False)
 
+def update_specific_data(environment_name: str, field, value):
+    data = {f"set__{field}": value}
+    EnvironmentDB.objects(name=environment_name).update(**data)

@@ -1,0 +1,5 @@
+middleware:
+    - device:
+        id: lampada
+        events:
+            - when hour == 17 and minute == 22 then switch(True)

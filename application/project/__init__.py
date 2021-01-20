@@ -16,11 +16,12 @@ db = MongoEngine(app)
 
 from .util import (
     components_config,
-    config_broker,
-    connection_broker,
-    start_subscribers,
 )
-from .controller import main_controller
+from .controller import (
+    main_controller,
+    {% for device in device_actuator %}
+    {{device[0].split("|")[0]}},{% endfor %}    
+)
 from .model import (
     {% for device in devices %}
     {{device}}_model,{% endfor %}

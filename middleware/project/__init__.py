@@ -1,31 +1,22 @@
 import eventlet
 eventlet.monkey_patch()
 from flask import Flask
-from flask_socketio import SocketIO
 from flask_mongoengine import MongoEngine
 
 
 app = Flask(__name__)
-socketio = SocketIO(app, async_mode="eventlet")
 app.config['MONGODB_SETTINGS'] = {
-    'db': 'devices',
-    'host': 'mongodb://localhost/devices'
+    'db': 'smarthome',
+    'host': 'mongodb://localhost/middleware'
 }
 db = MongoEngine(app)
 
 
-from .util import (
-    components_config,
-    config_broker,
-    connection_broker,
-    start_subscribers,
+from .controller import (
+    features_controller,
+    receive_data_controller,
+    send_data_controller,
+    thirdy_party_controller
 )
-from .controller import main_controller
-from .model import (
-    {% for device in devices %}
-    {{device}}_model,{% endfor %}
-)
-from .service import (
-    {% for device in devices %}
-    {{device}}_service,{% endfor %}
-)
+from .model import middleware_model
+from .service import middleware_service

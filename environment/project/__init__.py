@@ -10,7 +10,7 @@ app.config['MONGODB_SETTINGS'] = {
 db = MongoEngine(app)
 
 
-from .controller import environment_controller
+from .controller import environment_controller, update_controller
 from .entitys import environment_entity
 from .models import environment_model
 from .services import environment_service

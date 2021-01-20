@@ -3,11 +3,8 @@ import contextlib
 
 
 def remove_fields(data):
-    # o problema ta aui
+    # o problema ta aqui
     field_device_db = {{device_class}}Environment.__dict__['_reverse_db_field_map']
-    data_from = data['data_from']
-    '''with contextlib.suppress(Exception):
-        del field_device_db['_id']'''
     try:
         del field_device_db['_id']
     except:

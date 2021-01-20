@@ -8,5 +8,5 @@ class EnvironmentDB(db.Document):
     temperature = db.FloatField(required=True)
     noise = db.BooleanField(required=True)
     light = db.BooleanField(required=True)
-    proximity = db.BooleanField(required=False)
+    motion = db.BooleanField(required=False)
     people = db.ListField(db.ReferenceField(PersonDB))
