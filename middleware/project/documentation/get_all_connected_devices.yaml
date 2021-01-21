@@ -1,0 +1,9 @@
+Get all connected devices.
+---
+tags:
+  - Middleware
+
+responses:
+  200:
+    schema:
+      $ref: '#/definitions/Middleware'

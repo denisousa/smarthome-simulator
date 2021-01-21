@@ -1,0 +1,16 @@
+Disconnect device by device name.
+---
+tags:
+  - Middleware
+
+parameters:
+  - in: path
+    name: device_name
+    type: string
+    required: true
+    description: The device name.
+
+responses:
+  200:
+    schema:
+      $ref: '#/definitions/Middleware'

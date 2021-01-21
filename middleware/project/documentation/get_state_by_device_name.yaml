@@ -1,0 +1,9 @@
+Get the device status by the device name..
+---
+tags:
+  - Middleware
+
+responses:
+  200:
+    schema:
+      $ref: '#/definitions/Middleware'

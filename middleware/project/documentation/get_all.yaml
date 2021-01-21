@@ -1,0 +1,27 @@
+Get all the data saved in the middleware.
+---
+tags:
+  - Middleware
+
+definitions:
+  Middleware:
+    type: object
+    properties:
+      created_at:
+        type: string
+        format: date-time
+      temperature:
+        type: number
+      light:
+        type: boolean
+      motion:
+        type: boolean
+      data_from:
+        type: string
+      environment:
+         type: string
+
+responses:
+  200:
+    schema:
+      $ref: '#/definitions/Middleware'

@@ -28,7 +28,6 @@ def environment_{{environment_device[0]}}():
     socketio.emit("{{environment_device[0]}}", data)
     {% for device in environment_device[1] %}
     data_clean = {{device.replace(' ', '_')}}_service.remove_fields(dict(data))
-    # TODO: Alterar o clean para eu não fazer as linhas 28 e 29
     data_clean["environment"] = data_clean["data_from"]
     data_clean["data_from"] = "{{device.replace(' ', '_')}}" 
     requests.post('http://localhost:5002/receive-data/{{device.replace(' ', '_')}}', json=data_clean)

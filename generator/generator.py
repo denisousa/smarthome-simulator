@@ -125,7 +125,7 @@ def parser_DSL_Python(device, text):
                 device, sensor = condition.split(".")
                 sensor, boolean = sensor.split(" is ")
                 new_format.append(
-                    f"get_state_device('{device[1:]}')['{sensor}'] is {boolean}"
+                    f"get_state_by_device_name('{device[1:]}')['{sensor}'] is {boolean}"
                 )
             else:
                 new_format.append(condition)
