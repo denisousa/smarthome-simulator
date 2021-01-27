@@ -56,5 +56,5 @@ def main():
             environment['people'] = people
         requests.post('http://localhost:5000/{{ environment }}', json=environment)
         {% endfor %}
-        sleep(10)
+        sleep(3)
     return jsonify({'msg': 'Success send :)'}), 200

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 
@@ -14,28 +15,71 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12" align="center">
-            <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12 white" align="center"
-                style="width: 18rem; margin: 0.2rem;">
-                <div class="p-3 mb-2 bg-light rounded">Middleware</div>
-            </div>
-            <p>
-                <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                    Link with href
-                </a>
-                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                    Button with data-target
-                </button>
-            </p>
-            <div class="collapse" id="collapseExample">
-                <div class="card card-body">
-                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-                </div>
-            </div>
+  <br>
+  <br>
+    <!-- <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12" align="center">
+        <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12" align="center" style="width: 18rem; margin: 0.2rem;">
+            <div class="p-3 mb-2 bg-light rounded">Middleware</div>
         </div>
-    </div>
+        <div>
+          
+        </div>
+    </div> -->
+    <div class="container">
+      <div class="row">
 
+        <div class="col">
+          <div class="btn btn-light">Middleware</div>
+          <br>
+          <br>
+          <p>
+            {% for device, data in devices_data%}
+            <a class="btn btn-primary" data-toggle="collapse" href="#collapse{{device}}" role="button" aria-expanded="false" aria-controls="collapse{{device}}">
+              {{device.replace('_', ' ')}}
+            </a>
+            <br>
+            {% endfor %}
+          </p>
+          <hr>
+          <p>
+            <a class="btn btn-warning" data-toggle="collapse" href="#collapseSend" role="button" aria-expanded="false" aria-controls="collapseSend">
+              Commands Sent
+            </a>
+          </p>
+        </div>
+
+        <div class="col">
+          {% for device, datas in devices_data%}
+          <div class="collapse" id="collapse{{device}}">
+            <h4 class="text-light">{{device.capitalize().replace('_', ' ')}}</h4>
+            <div class="card card-body">
+              {% for data in datas%}
+              {{data}}
+              <br>
+              <hr>
+              {% endfor %}
+            </div>
+          </div>
+          {% endfor %}
+
+          <div class="collapse" id="collapseSend">
+            <h4 class="text-light">Command Sent</h4>
+            <div class="card card-body">
+              {% for command in commands_sent%}
+              {{command}}
+              <br>
+              <hr>
+              {% endfor %}
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+    </div>
 
     <!-- Footer -->
     <footer class="page-footer font-small blue pt-4" style="background-color: white; margin-top: 250px;">
@@ -50,4 +94,8 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"
     integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
 <script type="text/javascript" charset="utf-8" src="{{ url_for('static', filename='js/main.js') }}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
 </html>

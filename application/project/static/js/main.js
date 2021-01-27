@@ -19,6 +19,7 @@ document.getElementById("start-environments").addEventListener("click", function
     const Http = new XMLHttpRequest();
     Http.open("GET", "http://localhost:5001", true);
     Http.send();
+    removeDisable()
 });
 
 

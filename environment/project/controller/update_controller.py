@@ -8,7 +8,6 @@ import json
 {% for environment in environments %}
 @app.route("/{{ environment }}/update", methods=["POST"])
 def {{environment}}_update():
-    print("I'M ADAPT")
     env = request.json["environment"]
     del request.json["environment"]
     for key, value in request.json.items():

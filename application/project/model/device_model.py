@@ -2,12 +2,9 @@ from project import db
 from datetime import datetime
 
 
-class {{device_class}}Device(db.EmbeddedDocument):
-    temperature = db.FloatField(required=False)
-    noise = db.BooleanField(required=False)
-    light = db.BooleanField(required=False)
-    motion = db.BooleanField(required=False)
-    data_from = db.StringField(max_length=50, required=False)
+class {{device_class}}Status(db.EmbeddedDocument):
+    name = db.StringField(max_length=50, unique=True, required=False)
+    connect = db.BooleanField(required=False)
     created_at = db.DateTimeField(default=datetime.utcnow(), required=False)
 
 
@@ -31,6 +28,5 @@ class {{device_class}}Environment(db.EmbeddedDocument):
 
 
 class {{device_class}}DB(db.Document):
-    meta = {'collection': '{{name_device}}'}
-    device = db.EmbeddedDocumentField({{device_class}}Device, required=False)
+    meta = {'collection': '{{device_name}}'}
     environment = db.EmbeddedDocumentField({{device_class}}Environment, required=False)

@@ -45,7 +45,7 @@
             <div style="width:100%; text-align:center; margin-top:10px;">
                 <img class="center width:64px; height:64px;" src="static/images/{{ device['device']['image'] }}" alt="{{ device['device']['name'] }}">
             </div>
-            <div class="card-body">
+            <div id="header-{{device['device']['name'].lower().replace(' ', '_')}}" class="card-body">
                 <h5 class="card-title">{{device["device"]["name"]}}</h5>
                 <!-- <p class="card-text">Description: {{device["device"]["description"]}}</p> -->
                 <p class="card-text">Environment: {{device["device"]["environment"]}}</p>
@@ -53,7 +53,7 @@
             <hr>
             <div class="card-body">
                 <h5 class="card-title">Sensors</h5>
-                <div class="{{device['device']['name'].lower().replace(' ', '_')}}-sensors">
+                <div id="{{device['device']['name'].lower().replace(' ', '_')}}-sensors">
                 <!-- {% for sensor in device["device"]["sensors"] %}
                 <p class="card-text">{{sensor.capitalize()}}:</p> 
                 {% endfor %} --> 
@@ -61,12 +61,12 @@
             </div>
             <hr>
             <div class="card-body">
-                <h5 class="card-title">Communication</h5>
-                {% for communication in device["device"]["communications"]%}
-                <p class="card-text">{{communication.capitalize()}}</p>
+                <h5 class="card-title">Actuators</h5>
+                {% for actuator in device["device"]["actuators"]%}
+                <p class="card-text">{{actuator.popitem()[0]}}</p>
                 {% endfor %}
             </div>
-            <button href="#" class="btn btn-primary">Start</button>
+            <button href="#" class="btn btn-warning text-dark font-weight-bold" id="connect_{{device['device']['name'].lower().replace(' ', '_')}}" disabled>Disconnect</button>
             {% if 'actions' in device["device"] and device["device"]["modifier"] != 'temperature'  %}
             <button href="#" class="btn btn-warning">{{ device["device"]["actions"].capitalize() }}</button>
             {% endif %}
@@ -115,6 +115,7 @@
     </footer>
     <!-- Footer -->
 </body>
+<script type="text/javascript" charset="utf-8" src="static/js/util.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"
     integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
 <script type="text/javascript" charset="utf-8" src="{{ url_for('static', filename='js/main.js') }}"></script>

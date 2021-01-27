@@ -20,7 +20,7 @@ def get_names_devices_list(yaml_config):
 
 
 def get_names_devices_dict(yaml_config):
-    return {"name_device": name for name in yaml_config["devices"]}
+    return {"device_name": name for name in yaml_config["devices"]}
 
 
 def get_descriptions_devices_list(yaml_config):
@@ -116,7 +116,7 @@ def parser_DSL_Python(device, text):
     env = get_environmnt_by_device_name(devices_config["devices"], device)
     action_value = actions.split("(")[1].replace(")", "")
     action_value = {propertie: bool(action_value), "environment": env}
-    actions = f'requests.post("http://localhost:5000/{device}/actuator/{actuator}", json={action_value})'
+    actions = f"requests.post('http://localhost:5000/{device}/actuator/{actuator}', json={action_value})"
     if "and" in conditions:
         conditions = conditions.split(" and ")
         new_format = []
@@ -139,6 +139,7 @@ def replace_time(text):
     text = text.replace("hour", "datetime.now().hour")
     text = text.replace("minute", "datetime.now().minute")
     text = text.replace("second", "datetime.now().second")
+    text = text.replace("day", "datetime.now().day")
     return text
 
 
@@ -161,12 +162,12 @@ environments_devices = get_environment_devices(devices_config, names_environment
 
 people_config = get_yaml_config("people_config.yaml")
 
-for name_device, device in zip(names_devices, devices_config["devices"]):
+for device_name, device in zip(names_devices, devices_config["devices"]):
     r = open(f"../new_application/project/model/device_model.py", "r").read()
-    f = open(f"../new_application/project/model/{name_device}_model.py", "w")
-    device_class = name_device.replace("_", " ").title().replace(" ", "")
+    f = open(f"../new_application/project/model/{device_name}_model.py", "w")
+    device_class = device_name.replace("_", " ").title().replace(" ", "")
     t = Template(r).render(
-        name_device=name_device, device=device, device_class=device_class
+        device_name=device_name, device=device, device_class=device_class
     )
     f.write(t)
     f.close()
@@ -188,13 +189,33 @@ for device in names_devices:
 
 for device_actuator in device_actuators:
     r = open(
-        f"../new_application/project/controller/actuator_controller.py", "r"
+        f"../new_application/project/controller/actuator/actuator_controller.py", "r"
     ).read()
     f = open(
-        f"../new_application/project/controller/{device_actuator[0].split('|')[0]}.py",
+        f"../new_application/project/controller/actuator/{device_actuator[0].split('|')[0]}.py",
         "w",
     )
     t = Template(r).render(device_actuator=device_actuator)
+    f.write(t)
+    f.close()
+
+
+for device_name in names_devices:
+    r = open(f"../new_application/project/controller/connect/connect_middleware.py", "r").read()
+    f = open(f"../new_application/project/controller/connect/{device_name}_connect.py", "w")
+    t = Template(r).render(
+        device_name=device_name,
+    )
+    f.write(t)
+    f.close()
+
+
+for device_name in names_devices:
+    r = open(f"../new_application/project/controller/disconnect/disconnect_middleware.py", "r").read()
+    f = open(f"../new_application/project/controller/disconnect/{device_name}.py", "w")
+    t = Template(r).render(
+        device_name=device_name,
+    )
     f.write(t)
     f.close()
 
@@ -215,8 +236,8 @@ environment_controller = open(
 update_controller = open(
     "../environment/project/controller/update_controller.py", "r"
 ).read()
-main_controller = open(
-    "../application/project/controller/main_controller.py", "r"
+receive_data = open(
+    "../application/project/controller/receive_data/receive_data.py", "r"
 ).read()
 middleware_receive_controller = open(
     "../middleware/project/controller/receive_data_controller.py", "r"
@@ -229,7 +250,7 @@ middleware_service = open(
 ).read()
 init_py = open("../application/project/__init__.py", "r").read()
 main_js = open("../application/project/static/js/main.js", "r").read()
-start_subscribers = open("../application/project/util/start_subscribers.py", "r").read()
+# start_subscribers = open("../application/project/util/start_subscribers.py", "r").read()
 
 t = Template(environment_controller).render(
     **{"environments": names_environments, "people": people_config["people"]}
@@ -257,10 +278,10 @@ t = Template(components_config).render(
 with open("../new_application/project/util/components_config.py", "w") as f:
     f.write(t)
 
-t = Template(main_controller).render(
+t = Template(receive_data).render(
     **{"environments_devices": environments_devices, "devices": names_devices}
 )
-with open("../new_application/project/controller/main_controller.py", "w") as f:
+with open("../new_application/project/controller/receive_data/receive_data.py", "w") as f:
     f.write(t)
 
 t = Template(middleware_receive_controller).render(**{"names_devices": names_devices})
@@ -283,11 +304,14 @@ t = Template(main_js).render(**{"environments": names_environments})
 with open("../new_application/project/static/js/main.js", "w") as f:
     f.write(t)
 
-t = Template(start_subscribers).render(**{"devices": names_devices})
-with open("../new_application/project/util/start_subscribers.py", "w") as f:
-    f.write(t)
+# t = Template(start_subscribers).render(**{"devices": names_devices})
+# with open("../new_application/project/util/start_subscribers.py", "w") as f:
+#     f.write(t)
 
 os.remove("../new_application/project/model/device_model.py")
 os.remove("../new_application/project/service/device_service.py")
-os.remove("../new_application/project/controller/actuator_controller.py")
+os.remove("../new_application/project/controller/connect/connect_middleware.py")
+os.remove("../new_application/project/controller/disconnect/disconnect_middleware.py")
+os.remove("../new_application/project/controller/actuator/actuator_controller.py")
 os.remove("../new_application/project/static/js/device.js")
+

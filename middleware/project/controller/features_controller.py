@@ -4,7 +4,9 @@ from project.service.middleware_service import (
     save_data,
     check_and_apply_strategies,
     get_all_data,
+    get_all_devices_name,
     get_all_data_by_device_name,
+    get_all_commands_sent,
     get_state_by_device_name,
     check_device_has_been_disconnected,
     get_all_connected_devices,
@@ -27,10 +29,22 @@ def get_all():
     return jsonify(get_all_data()), 200
 
 
+@swag_from(f"{app.config['DOCUMENTATION']}get_all_devices_name.yaml")
+@app.route("/get_all_devices_name", methods=["GET"])
+def get_all_devices():
+    return jsonify(get_all_devices_name()), 200
+
+
 @swag_from(f"{app.config['DOCUMENTATION']}get_all_by_device_name.yaml")
 @app.route("/get_all_by_device_name/<device_name>", methods=["GET"])
 def get_all_device_name(device_name):
     return jsonify(get_all_data_by_device_name(device_name)), 200
+
+
+@swag_from(f"{app.config['DOCUMENTATION']}get_all_commands_sent.yaml")
+@app.route("/get_all_commands_sent", methods=["GET"])
+def get_all_commands_sent_func():
+    return jsonify(get_all_commands_sent()), 200
 
 
 @swag_from(f"{app.config['DOCUMENTATION']}get_state_by_device_name.yaml")
@@ -65,6 +79,7 @@ def get_disconnected_devices():
 @swag_from(f"{app.config['DOCUMENTATION']}connect_device_by_device_name.yaml")
 @app.route("/connect_device_by_device_name/<device_name>", methods=["GET"])
 def connect_device(device_name):
+    print(f"\n Yeah Connect {device_name} \n")
     msg, result = connect_device_by_device_name(device_name)
     return jsonify({"msg": msg, "result": result}), 200
 
@@ -72,5 +87,8 @@ def connect_device(device_name):
 @swag_from(f"{app.config['DOCUMENTATION']}disconnect_device_by_device_name.yaml")
 @app.route("/disconnect_device_by_device_name/<device_name>", methods=["GET"])
 def disconnect_device(device_name):
+    print(f"\n Yeah Disconnect {device_name} \n")
     msg, result = disconnect_device_by_device_name(device_name)
     return jsonify({"msg": msg, "result": result}), 200
+
+

@@ -1,0 +1,10 @@
+Get all commands sent.
+---
+tags:
+  - Middleware
+
+
+responses:
+  200:
+    schema:
+      $ref: '#/definitions/Middleware'
