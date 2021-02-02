@@ -1,5 +1,6 @@
 from project.model.{{device}}_model import {{device_class}}DB, {{device_class}}Environment
 import contextlib
+import json
 
 
 def remove_fields(data):
@@ -19,6 +20,11 @@ def remove_fields(data):
 def save_data_environment(data):
     {{device_class}}DB(environment=data).save()
 
+
+def get_state():
+    state = json.loads({{device_class}}DB.objects().to_json())[-1]["environment"]
+    del state["created_at"]
+    return state
 
 def get_connection_status():
     status = {{device_class}}Status.objects(name="{{device_class}}").find()

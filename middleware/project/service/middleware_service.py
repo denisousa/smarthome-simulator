@@ -9,17 +9,20 @@ import requests
 import json
 
 
-def check_and_apply_strategies():
-    {% for strategy in strategies %}
-    {{strategy[0]}}
-        {{strategy[1]}}
-        data = {
-                "event":"{{strategy[0].replace(':', '').replace('if  ', '')}}",
-                "command":"{{strategy[1]}}"
-            }
-        MiddlewareStrategyDB(**data).save()
+def check_and_apply_strategies(device_name):
+    connected_devices = get_all_connected_devices()
+    print(f"connected_devices \n {connected_devices}")
+    if device_name in connected_devices:
+        {% for strategy in strategies %}
+        {{strategy[0]}}
+            {{strategy[1]}}
+            data = {
+                    "event":"{{strategy[0].replace(':', '').replace('if  ', '')}}",
+                    "command":"{{strategy[1]}}"
+                }
+            MiddlewareStrategyDB(**data).save()
 
-    {% endfor %}
+        {% endfor %}
 
 
 def save_data(data):
@@ -51,8 +54,10 @@ def get_all_commands_sent():
 
 def get_state_by_device_name(device_name):
     all_data = MiddlewareDB.objects(data_from=device_name).to_json()
-    return json.loads(all_data)[-1]
-
+    try:
+        return json.loads(all_data)[-1]
+    except:
+        return {}
 
 def check_device_has_been_disconnected(device_name):
     device = MiddlewareDisconnectedDevicesDB.objects(name=device_name).first()

@@ -1,0 +1,128 @@
+architecture:
+    middleware
+
+devices:
+    - device:
+        name: Geladeira
+        description: Geladeira inteligente.
+        sensors:
+            - temperature
+            - noise
+            - light
+        actuators:
+            - alarm: noise
+        environment: Cozinha
+        image: fridge.png
+
+    - device:
+        name: Assistente Virtual
+        description: Alexa uma assistente inteligente.
+        sensors:
+            - temperature
+            - noise
+            - light
+            - motion
+        actuators:
+            - speak_notification: noise
+            - alarm: noise
+        environment: Escritorio
+        image: alexa.png
+
+    - device:
+        name: Microondas
+        description: Microondas inteligente.
+        sensors:
+            - temperature
+            - noise
+            - light
+        actuators:
+            - alarm: noise
+        environment: Escritorio
+        image: microwave.png
+
+    - device:
+        name: Lampada
+        description: Lampada inteligente.
+        sensors:
+            - temperature
+            - noise
+            - light
+            - motion
+        actuators:
+            - switch: light
+        environment: Banheiro
+        image: lightbulb.png
+
+    - device:
+        name: Torradeira
+        description: Torradeira inteligente.
+        sensors:
+            - temperature
+            - motion
+        environment: Banheiro
+        image: toaster.png
+
+    - device:
+        name: Televisao
+        description: Televisao inteligente.
+        sensors:
+            - light
+        environment: Escritorio
+        image: television.png
+
+    - device:
+        name: Ar condicionado
+        description: Ar condicionado inteligente.
+        sensors:
+            - temperature
+            - light
+        actuators:
+            - alarm: noise
+        environment: Cozinha
+        image: air-conditioner.png
+
+    - device:
+        name: Ventilador
+        description: Ventilador inteligente.
+        sensors:
+            - temperature
+            - noise
+            - light
+        environment: Cozinha
+        image: fan.png
+
+    - device:
+        name: Relogio
+        description: Relogio inteligente.
+        sensors:
+            - noise
+        environment: Cozinha
+        image: clock.png
+
+    - device:
+        name: Fogao
+        description: Fogao inteligente.
+        sensors:
+            - temperature
+            - noise
+            - light
+            - motion
+        environment: Cozinha
+        image: stove.png
+
+    - device:
+        name: Estante de livros
+        description: Estante de livros inteligente.
+        sensors:
+            - temperature
+        environment: Escritorio
+        image: bookshelf.png
+
+    - device:
+        name: Guarda roupa
+        description: Guarda roupa inteligente.
+        sensors:
+            - temperature
+            - light
+        environment: Cozinha
+        image: wardrobe.png

@@ -2,4 +2,11 @@ middleware:
     - device:
         id: lampada
         events:
-            - when hour == 11 and minute == 5 then switch(True)
+            - when lampada.motion is True and hour >= 12 then switch(True)
+            - when lampada.motion is False and hour >= 12 then switch(False)
+
+    - device:
+        id: assistente_virtual
+        events:
+            - when hour == 15 and minute == 52 then speak_notification(True)
+            - when hour == 15 and minute == 53 then speak_notification(False)

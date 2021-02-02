@@ -1,15 +1,17 @@
 people:
     - person:
-        name: Aldaberto
+        name: Pedro
         environment: Cozinha
         image: father.png
 
     - person:
-        name: Rosangela
+        name: Sara
         environment: Escritorio
         image: mother.png
 
     - person:
-        name: Aerosangelo
+        name: Matheus
         environment: Quarto
         image: boy.png
+
+

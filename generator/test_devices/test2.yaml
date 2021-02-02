@@ -20,6 +20,7 @@ devices:
         name: Lampada
         description: Lampada inteligente.
         sensors:
+            - temperature
             - noise
             - light
             - motion

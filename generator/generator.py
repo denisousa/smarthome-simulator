@@ -80,7 +80,7 @@ def get_device_actuators(yaml_config):
             ]
             device_by_actuators.append(
                 device_actuator
-            )  # Fazer funcionar só com um atuador
+            )
     return device_by_actuators
 
 
@@ -104,6 +104,10 @@ def get_environmnt_by_device_name(devices_config, device):
         if device == configure_name(device_config["device"]["name"]):
             return device_config["device"]["environment"].lower()
 
+def parseStrBool(string):
+    if string == "True":
+        return True
+    return False
 
 def parser_DSL_Python(device, text):
     text = text.replace("when", "")
@@ -115,7 +119,7 @@ def parser_DSL_Python(device, text):
     )
     env = get_environmnt_by_device_name(devices_config["devices"], device)
     action_value = actions.split("(")[1].replace(")", "")
-    action_value = {propertie: bool(action_value), "environment": env}
+    action_value = {propertie: parseStrBool(action_value), "environment": env}
     actions = f"requests.post('http://localhost:5000/{device}/actuator/{actuator}', json={action_value})"
     if "and" in conditions:
         conditions = conditions.split(" and ")
@@ -125,7 +129,7 @@ def parser_DSL_Python(device, text):
                 device, sensor = condition.split(".")
                 sensor, boolean = sensor.split(" is ")
                 new_format.append(
-                    f"get_state_by_device_name('{device[1:]}')['{sensor}'] is {boolean}"
+                    f"get_state_by_device_name('{device[1:]}').get('{sensor}') is {boolean}"
                 )
             else:
                 new_format.append(condition)
@@ -187,6 +191,7 @@ for device in names_devices:
     f.write(t)
     f.close()
 
+
 for device_actuator in device_actuators:
     r = open(
         f"../new_application/project/controller/actuator/actuator_controller.py", "r"
@@ -195,6 +200,8 @@ for device_actuator in device_actuators:
         f"../new_application/project/controller/actuator/{device_actuator[0].split('|')[0]}.py",
         "w",
     )
+    env = get_environmnt_by_device_name(devices_config["devices"], device_actuator[0].split('|')[0])
+    device_actuator = [f"{device_actuator[0]}|{env}"]
     t = Template(r).render(device_actuator=device_actuator)
     f.write(t)
     f.close()

@@ -12,6 +12,7 @@ class MiddlewareDB(db.Document):
     environment = db.StringField(max_length=50, required=False)
     created_at = db.DateTimeField(default=datetime.utcnow(), required=False)
 
+
 class MiddlewareDisconnectedDevicesDB(db.Document):
     meta = {'collection': 'disconnected devices'}
     name = db.StringField(max_length=50, required=False)
