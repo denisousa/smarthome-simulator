@@ -2,8 +2,8 @@ middleware:
     - device:
         id: lampada
         events:
-            - when lampada.motion is True and hour >= 12 then switch(True)
-            - when lampada.motion is False and hour >= 12 then switch(False)
+            - when lampada.motion is True and hour >= 11 then switch(True)
+            - when lampada.motion is False and hour >= 11 then switch(False)
 
     - device:
         id: assistente_virtual

@@ -13,3 +13,11 @@ function removeDisable(){
         button.disabled = false;
     }
 }
+
+function getCurrentTime(){
+    var date = new Date();
+    var seconds = date.getSeconds();
+    var minutes = date.getMinutes();
+    var hour = date.getHours();
+    return `Time: ${hour}:${seconds}:${minutes}`
+}

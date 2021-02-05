@@ -39,3 +39,33 @@ socket.on('{{environment}}', function (msg) {
     }
 });
 {% endfor %}
+
+
+
+socket.on('actuatorSimulator', function(msg) {
+    var br = document.createElement("br");
+    var hr = document.createElement("hr");
+    document.querySelector("#actuatorLog").prepend(br);
+    document.querySelector("#actuatorLog").prepend(hr);
+
+    for (data in msg) {
+        var p = document.createElement("p");
+        var value = document.createTextNode(capitalize(data + ": " + msg[data]));
+        p.appendChild(value);
+        document.querySelector("#actuatorLog").prepend(p);
+    }
+});
+
+
+socket.on('environmentSimulator', function(msg) {
+    var br = document.createElement("br");
+    var hr = document.createElement("hr");
+    document.querySelector("#environmntLog").prepend(br);
+    document.querySelector("#environmntLog").prepend(hr);
+    for (data in msg) {
+        var p = document.createElement("p");
+        var value = document.createTextNode(capitalize(data + ": " + msg[data]));
+        p.appendChild(value);
+        document.querySelector("#environmntLog").prepend(p);
+    }
+});

@@ -101,9 +101,55 @@
         {% endfor %}
     </div>
 
+
+
     <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12" align="center" style="width: 18rem; margin: 0.2rem;">
         <button href="#" class="btn btn-primary" id="start-environments">Start Environments</button>
     </div>
+
+
+    <hr style="background-color:white">
+
+    <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12" align="center">
+        <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center" align="center" style="width: 18rem; margin: 0.2rem;">
+            <div class="p-3 mb-2 bg-light rounded"><h4>Log of System</h4></div>
+        </div>
+
+
+        <div class="card" style="width: 18rem; margin: 1rem;">
+            <div class="card-header">
+                <h5>Connect</h5>
+            </div>
+            <div id="connectLog" class="card card-body scroll">
+            </div>
+        </div>
+
+        <div class="card" style="width: 18rem; margin: 1rem;">
+            <div class="card-header">
+                <h5>Disconnect</h5>
+            </div>
+            <div id="disconnectLog" class="card card-body scroll">
+            </div>
+        </div>
+
+        <div class="card" style="width: 18rem; margin: 1rem;">
+            <div class="card-header">
+                <h5>Middleware</h5>
+            </div>
+            <div id="actuatorLog" class="card card-body scroll">
+            </div>
+        </div>
+
+        <div class="card" style="width: 18rem; margin: 1rem;">
+            <div class="card-header">
+                <h5>Environment</h5>
+            </div>
+            <div id="environmntLog" class="card card-body scroll">
+            </div>
+        </div>
+
+    </div>
+
 
     <!-- Footer -->
     <footer class="page-footer font-small blue pt-4" style="background-color: white; margin-top: 250px;">

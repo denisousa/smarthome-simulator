@@ -26,6 +26,7 @@ document.getElementById("connect_{{device}}").addEventListener("click", function
         document.getElementById("connect_{{device}}").className = "btn btn-info font-weight-bold";
         document.getElementById("{{device}}-sensors").style.color = "#990000";
         // updateStatus(connect_{{device}});
+        updateDisconnectLog();
     } 
     else {
         Http.open("GET", "http://localhost:5002/connect_device_by_device_name/{{device}}", true);
@@ -35,6 +36,7 @@ document.getElementById("connect_{{device}}").addEventListener("click", function
         document.getElementById("connect_{{device}}").className = "btn btn-warning text-dark font-weight-bold";
         document.getElementById("{{device}}-sensors").style.color = "#212529";
         // updateStatus(connect_{{device}});
+        updateConnectLog();
     }
 });
 
@@ -54,6 +56,7 @@ function updateStatus(connect_device) {
         node.appendChild(textnode);
         div.appendChild(node);
         document.getElementById("header-{{device}}").appendChild(div);
+
     }
     else {
         var div = document.createElement("div");
@@ -65,6 +68,41 @@ function updateStatus(connect_device) {
         document.getElementById("header-{{device}}").appendChild(div);
     }
 }
+
+
+function updateConnectLog() {
+    var br = document.createElement("br");
+    var hr = document.createElement("hr");
+    document.querySelector("#connectLog").prepend(br);
+    document.querySelector("#connectLog").prepend(hr);
+
+    var p = document.createElement("p");
+    var value = document.createTextNode(capitalize("{{device}} Connected"));
+    var p2 = document.createElement("p");
+    var value2 = document.createTextNode(getCurrentTime());
+    p.appendChild(value);
+    p2.appendChild(value2);
+    document.querySelector("#connectLog").prepend(p);
+    document.querySelector("#connectLog").prepend(p2);
+}
+
+function updateDisconnectLog() {
+    var br = document.createElement("br");
+    var hr = document.createElement("hr");
+    document.querySelector("#disconnectLog").prepend(br);
+    document.querySelector("#disconnectLog").prepend(hr);
+
+    var p = document.createElement("p");
+    var value = document.createTextNode(capitalize("{{device}} Disconnected"));
+    var p2 = document.createElement("p");
+    var value2 = document.createTextNode(getCurrentTime());
+    p.appendChild(value);
+    p2.appendChild(value2);
+    document.querySelector("#disconnectLog").prepend(p);
+    document.querySelector("#disconnectLog").prepend(p2);
+}
+
+
 
 // socket.on('{{device}}_adapt', function(data) {
 //     alert("Success Adapt: \n " + data);

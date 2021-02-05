@@ -1,11 +1,13 @@
 from flask import Flask
 from flask_mongoengine import MongoEngine
 from pymongo import MongoClient
+import socketio
+import asyncio
+from multiprocessing import Process
 
 
 def drop_database(database_name):
     mongo_client = MongoClient('mongodb://localhost:27017')
-    database_list = mongo_client.database_names()
     mongo_client.drop_database(database_name)
     mongo_client.close()
 
@@ -17,6 +19,17 @@ app.config['MONGODB_SETTINGS'] = {
     'host': 'mongodb://localhost/environments'
 }
 db = MongoEngine(app)
+
+sio = socketio.Client(logger=True, engineio_logger=True)
+
+def connect_websocket():
+    asyncio.run(
+        sio.connect('http://localhost:5000')
+    )
+
+# p = Process(target=connect_websocket)
+# p.start()
+# p.join()
 
 
 from .controller import environment_controller, update_controller

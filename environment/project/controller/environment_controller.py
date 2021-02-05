@@ -9,7 +9,8 @@ from project.services.environment_service import (
     update_proximty,
 )
 from project.services.person_service import (
-    create_person
+    create_person,
+    find_person_by_id,
 )
 from project.util.components_config import (
     people,
@@ -56,5 +57,17 @@ def main():
             environment['people'] = people
         requests.post('http://localhost:5000/{{ environment }}', json=environment)
         {% endfor %}
-        sleep(5)
+        sleep(6)
     return jsonify({'msg': 'Success send :)'}), 200
+
+
+@app.route("/get_state/<env_name>")
+def get_environment_state(env_name):
+    environment = find_environment_by_name(env_name)
+    environment = json.loads(environment.to_json())
+    del environment["_id"]
+    people = [find_person_by_id(person["$oid"])["name"] for person in environment["people"]]
+    environment["people"] = people
+    environment["environment"] = environment["name"]
+    del environment["name"]
+    return jsonify(environment), 200

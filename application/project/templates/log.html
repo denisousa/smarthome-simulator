@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- Local CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <meta charset="UTF-8">
+
+</head>
+
+<body>
+    <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12" align="center">
+        <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center" align="center" style="width: 18rem; margin: 0.2rem;">
+            <div class="p-3 mb-2 bg-light rounded"><h4>Log of System</h4></div>
+        </div>
+
+
+        <div class="card" style="width: 18rem; margin: 1rem;">
+            <div class="card-header">
+                <h5>Connect</h5>
+            </div>
+            <div class="card card-body scroll">
+            </div>
+        </div>
+
+        <div class="card" style="width: 18rem; margin: 1rem;">
+            <div class="card-header">
+                <h5>Disconnect</h5>
+            </div>
+            <div class="card card-body scroll">
+            </div>
+        </div>
+
+        <div class="card" style="width: 18rem; margin: 1rem;">
+            <div class="card-header">
+                <h5>Middleware</h5>
+            </div>
+            <div id="actuatorLog" class="card card-body scroll">
+            </div>
+        </div>
+
+        <div class="card" style="width: 18rem; margin: 1rem;">
+            <div class="card-header">
+                <h5>Environment</h5>
+            </div>
+            <div id="environmntLog" class="card card-body scroll">
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- Footer -->
+    <footer class="page-footer font-small blue pt-4" style="background-color: white; margin-top: 250px;">
+
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3">© 2020 Copyright: Simulator Smart Home
+        </div>
+        <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
+</body>
+<script type="text/javascript" charset="utf-8" src="static/js/util.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"
+    integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+<script type="text/javascript" charset="utf-8" src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% for device in devices_config %}
+<script type="text/javascript" charset="utf-8" src="static/js/{{ device['device']['name'].lower().replace(' ', '_') }}.js"></script>
+{% endfor %}
+</html>

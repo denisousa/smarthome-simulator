@@ -52,7 +52,7 @@
           {% for device, datas in devices_data%}
           <div class="collapse" id="collapse{{device}}">
             <h4 class="text-light">{{device.capitalize().replace('_', ' ')}}</h4>
-            <div class="card card-body">
+            <div class="card card-body scroll">
               {% for data in datas%}
               {{data}}
               <br>
@@ -64,7 +64,7 @@
 
           <div class="collapse" id="collapseSend">
             <h4 class="text-light">Command Sent</h4>
-            <div class="card card-body">
+            <div class="card card-body scroll">
               {% for command in commands_sent%}
               {{command}}
               <br>

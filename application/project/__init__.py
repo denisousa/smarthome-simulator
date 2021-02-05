@@ -36,11 +36,6 @@ from .controller.actuator import (
 from .controller import connect
 from .controller import disconnect
 
-# from .controller.disconnect_middleware import (
-#     {% for device in devices %}
-#     {{device}},{% endfor %}
-# )
-
 from .model import (
     {% for device in devices %}
     {{device}}_model,{% endfor %}

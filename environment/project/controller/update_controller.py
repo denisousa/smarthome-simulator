@@ -1,4 +1,4 @@
-from project import app
+from project import app, sio
 from flask import Flask, jsonify, request
 from project.services.environment_service import (
     update_specific_data,
@@ -12,7 +12,9 @@ import json
 {% for environment in environments %}
 @app.route("/{{ environment }}/update", methods=["POST"])
 def {{environment}}_update():
+    print("\nYEAH I CHANGE ENVIRONMENT\n")
     env = request.json["environment"]
+    # sio.emit('envTalk', env)
     del request.json["environment"]
     for key, value in request.json.items():
         update_specific_data(env, key, value)
